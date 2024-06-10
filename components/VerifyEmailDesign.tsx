@@ -25,7 +25,7 @@ export const VerificationEmailDesign = ({
             Verify Your Identity
           </Text>
           <Heading className="text-lg font-medium text-center mb-4">
-            Hi {username}, here's your verification code
+          Hi {username}, here&apos;s your verification code
           </Heading>
           <Section className="bg-gray-100 rounded-md p-4 mb-4">
             <Text className="text-3xl font-bold text-center">{verificationCode}</Text>

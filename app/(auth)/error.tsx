@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 
-const error = () => {
+const Error = () => {
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-red-600">
       <section className="flex items-center h-full p-16 tex">
@@ -41,4 +41,4 @@ const error = () => {
   );
 };
 
-export default error;
+export default Error;

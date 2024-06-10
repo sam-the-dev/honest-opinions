@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { signIn } from "next-auth/react";
 
-const page = () => {
+const Page = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const router = useRouter();
@@ -153,4 +153,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

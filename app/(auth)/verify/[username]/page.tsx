@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/input-otp";
 import { verifyCodeAction } from "@/server-actions/verify-code";
 
-const page = () => {
+const Page = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [verificationCode, setVerificationCode] = useState("");
 
@@ -166,4 +166,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

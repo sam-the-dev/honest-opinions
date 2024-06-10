@@ -16,7 +16,6 @@ import {
   acceptMesssageApiResponseType,
   apiResponseType,
 } from "@/lib/schema-types";
-import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getAllMessages } from "@/server-actions/get-messages";
@@ -51,7 +50,18 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
       fetchAllMessages();
       fetchAcceptMessage();
     }
-  }, [session]);
+  }, []);
+
+  const handleAPIError = (error: any, defaultMessage: string) => {
+    console.error(defaultMessage, error?.message);
+
+    const errorMessage = error?.message || defaultMessage + "! Try again";
+    toast({
+      description: errorMessage,
+      className:
+        "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
+    });
+  };
 
   const fetchAcceptMessage = useCallback(
     async function () {
@@ -72,7 +82,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         setIsSwitchLoading(false);
       }
     },
-    [setIsSwitchLoading, setValue, acceptMessages]
+    [setIsSwitchLoading, setValue, acceptMessages, handleAPIError]
   );
 
   const fetchAllMessages = useCallback(async () => {
@@ -99,7 +109,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
       setIsLoading(false);
       setIsSwitchLoading(false);
     }
-  }, [messages, setIsLoading, setIsSwitchLoading]);
+  }, [messages, setIsLoading, setIsSwitchLoading, handleAPIError]);
 
   const deleteMessage = useCallback(
     async (messageId: Number) => {
@@ -123,7 +133,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         handleAPIError(error, "Error while deleting message !");
       }
     },
-    [messages, setMessages]
+    [messages, setMessages, handleAPIError]
   );
 
   const copyURL = async () => {
@@ -158,19 +168,8 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         handleAPIError(error, "Error while updating message acceptance status");
       }
     },
-    [isSwitchLoading, setValue, acceptMessages]
+    [isSwitchLoading, setValue, acceptMessages, handleAPIError]
   );
-
-  const handleAPIError = (error: any, defaultMessage: string) => {
-    console.error(defaultMessage, error?.message);
-
-    const errorMessage = error?.message || defaultMessage + "! Try again";
-    toast({
-      description: errorMessage,
-      className:
-        "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
-    });
-  };
 
   return (
     <div className="py-8 md:mx-[10rem] sm:mx-[5rem] mx-[2rem] lg:mx-[18rem]">
@@ -227,7 +226,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
       <div className=" w-full flex flex-wrap xl:gap-8 md:gap-6 gap-4 xl:justify-between sm:justify-evenly justify-center mt-4">
         {messages.length > 0 ? (
           messages.map((message) => (
-            <div>
+            <div key={message.id}>
               <MessageCard message={message} onMessageDelete={deleteMessage} />
             </div>
           ))

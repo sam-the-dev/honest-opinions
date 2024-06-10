@@ -26,7 +26,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { checkUsernameAction } from "@/server-actions/check-username";
 import { registerUser } from "@/server-actions/register-user";
 
-const page = () => {
+const Page = () => {
   const [username, setUsername] = useState<string>("");
   const [isCheckingUsername, setIsCheckingUsername] = useState<boolean>(false);
   const [usernameMessage, setUsernameMessage] = useState<string>("");
@@ -254,4 +254,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -35,7 +35,7 @@ const defaultMessages = [
 `,
 ];
 
-const page = () => {
+const Page = () => {
   const [isDisabled, setDisabled] = useState<boolean>(true);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isSuggestMessageLoading, setIsSuggestMessageLoading] =
@@ -235,4 +235,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
