@@ -29,10 +29,9 @@ import { LoaderCircle } from "lucide-react";
 import { sendMessage } from "@/server-actions/send-message";
 
 const defaultMessages = [
-  "What type of movies are you in?",
-  `What's your dream job?`,
-  `What's your go-to coffee order?
-`,
+  { id: 0, message: "What type of movies are you in?" },
+  { id: 1, message: `What's your dream job?` },
+  { id: 3, message: `What's your go-to coffee order?` },
 ];
 
 const Page = () => {
@@ -202,15 +201,17 @@ const Page = () => {
           <div className="w-full rounded-md shadow-lg border-gray-200 border-[0.5px] p-5 flex flex-col">
             <h1 className="text-lg font-bold font-poppins ">Messages</h1>
             {defaultMessages.map((defaultMsg) => (
-              <Button
-                className="border-[1px] border-gray-200 font-poppins shadow-sm w-full tracking-wide mt-4 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200"
-                onClick={() => {
-                  setValue("content", defaultMsg);
-                  setDisabled(false);
-                }}
-              >
-                {defaultMsg}
-              </Button>
+              <div key={defaultMsg.id}>
+                <Button
+                  className="border-[1px] border-gray-200 font-poppins shadow-sm w-full tracking-wide mt-4 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200"
+                  onClick={() => {
+                    setValue("content", defaultMsg.message);
+                    setDisabled(false);
+                  }}
+                >
+                  {defaultMsg.message}
+                </Button>
+              </div>
             ))}
           </div>
 
