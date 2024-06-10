@@ -202,7 +202,7 @@ const Page = () => {
             <h1 className="text-lg font-bold font-poppins ">Messages</h1>
             {defaultMessages.map((defaultMsg) => (
               <div key={defaultMsg.id}>
-                <Button
+                <Button key={defaultMsg.id}
                   className="border-[1px] border-gray-200 font-poppins shadow-sm w-full tracking-wide mt-4 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200"
                   onClick={() => {
                     setValue("content", defaultMsg.message);

@@ -82,7 +82,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         setIsSwitchLoading(false);
       }
     },
-    [setIsSwitchLoading, setValue, acceptMessages, handleAPIError]
+    [setIsSwitchLoading, setValue, acceptMessages, handleAPIError, toast]
   );
 
   const fetchAllMessages = useCallback(async () => {
@@ -109,7 +109,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
       setIsLoading(false);
       setIsSwitchLoading(false);
     }
-  }, [messages, setIsLoading, setIsSwitchLoading, handleAPIError]);
+  }, [messages, setIsLoading, setIsSwitchLoading, handleAPIError, toast]);
 
   const deleteMessage = useCallback(
     async (messageId: Number) => {
@@ -133,7 +133,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         handleAPIError(error, "Error while deleting message !");
       }
     },
-    [messages, setMessages, handleAPIError]
+    [messages, setMessages, handleAPIError, toast]
   );
 
   const copyURL = async () => {
@@ -168,7 +168,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         handleAPIError(error, "Error while updating message acceptance status");
       }
     },
-    [isSwitchLoading, setValue, acceptMessages, handleAPIError]
+    [isSwitchLoading, setValue, acceptMessages, handleAPIError, toast]
   );
 
   return (
