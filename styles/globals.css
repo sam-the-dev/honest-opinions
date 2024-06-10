@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Poppins', sans-serif;
+}
+
+.bg-myblue {
+  background-color: #01204E;
+}
+
+.text-myblue {
+  color: #01204E;
+}
+
+.bg-mysky {
+  background-color: #028391;
+}
+
+.text-mysky {
+  color: #028391;
+}
+
+.bg-myskin {
+  background-color: #F6DCAC;
+}
+
+.text-myskin {
+  color: #F6DCAC;
+}
+
+.bg-myorange {
+  background-color: #FEAE6F;
+}
+
+.text-myorange {
+  color: #FEAE6F;
+}
