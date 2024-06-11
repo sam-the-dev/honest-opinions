@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -92,16 +92,19 @@ const Page = () => {
     }
   };
 
-  const handleAPIError = (error: any, defaultMessage: string) => {
-    console.error(defaultMessage, error?.message);
+  const handleAPIError = useCallback(
+    (error: any, defaultMessage: string) => {
+      console.error(defaultMessage, error?.message);
 
-    const errorMessage = error?.message || defaultMessage + "! Try again";
-    toast({
-      description: errorMessage,
-      className:
-        "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
-    });
-  };
+      const errorMessage = error?.message || defaultMessage + "! Try again";
+      toast({
+        description: errorMessage,
+        className:
+          "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
+      });
+    },
+    [toast]
+  );
 
   return (
     <>

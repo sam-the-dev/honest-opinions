@@ -13,8 +13,6 @@ import {
   MessageProps,
   acceptMessageSchema,
   acceptMessageSchemaType,
-  acceptMesssageApiResponseType,
-  apiResponseType,
 } from "@/lib/schema-types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -52,16 +50,19 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
     }
   }, []);
 
-  const handleAPIError = (error: any, defaultMessage: string) => {
-    console.error(defaultMessage, error?.message);
+  const handleAPIError = useCallback(
+    (error: any, defaultMessage: string) => {
+      console.error(defaultMessage, error?.message);
 
-    const errorMessage = error?.message || defaultMessage + "! Try again";
-    toast({
-      description: errorMessage,
-      className:
-        "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
-    });
-  };
+      const errorMessage = error?.message || defaultMessage + "! Try again";
+      toast({
+        description: errorMessage,
+        className:
+          "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
+      });
+    },
+    [toast]
+  );
 
   const fetchAcceptMessage = useCallback(
     async function () {
