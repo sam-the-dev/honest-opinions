@@ -227,7 +227,11 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         {messages.length > 0 ? (
           messages.map((message) => (
             <div key={message.id}>
-              <MessageCard message={message} onMessageDelete={deleteMessage} />
+              <MessageCard
+                message={message}
+                key={message.id}
+                onMessageDelete={deleteMessage}
+              />
             </div>
           ))
         ) : (
