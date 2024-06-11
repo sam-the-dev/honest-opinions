@@ -13,7 +13,7 @@ export async function sendEmail({
 
   try {
     const send = await resend.emails.send({
-      from: "Honest Opinions <thedev.sam09@gmail.com>",
+      from: "Honest Opinions <hello@sakshamstudios.tech>",
       to: email,
       subject,
       react: VerificationEmailDesign({ username, verificationCode }),

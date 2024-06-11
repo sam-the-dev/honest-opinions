@@ -67,6 +67,10 @@ const Page = () => {
   const handleSuggestMessageClick = function () {
     setClick((prev) => prev + 1);
     setIsSuggestMessageLoading(true);
+
+    setTimeout(() => {
+      setIsSuggestMessageLoading(false);
+    }, 3000);
   };
 
   const onSubmit: SubmitHandler<messageSchemaType> = async (
@@ -156,7 +160,7 @@ const Page = () => {
                   <Button
                     type="submit"
                     disabled
-                    className="w-40 text-base tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center scale-75 sm:scale-100"
+                    className="w-40 text-sm tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center scale-75 sm:scale-100"
                   >
                     <LoaderCircle className="animate-spin mr-3" />
                     Please Wait
@@ -179,7 +183,7 @@ const Page = () => {
               <Button
                 type="submit"
                 disabled
-                className="w-40 text-base tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center scale-75 sm:scale-100"
+                className="w-40 text-sm tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center scale-75 sm:scale-100"
               >
                 <LoaderCircle className="animate-spin mr-3" />
               </Button>
@@ -188,7 +192,7 @@ const Page = () => {
                 type="button"
                 disabled={click === 3 ? true : false}
                 onClick={handleSuggestMessageClick}
-                className="text-sm w-[10rem] tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center mt-7 scale-75 sm:scale-100"
+                className="text-sm w-36 tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center mt-7 scale-75 sm:scale-100"
               >
                 Suggest Messages
               </Button>
@@ -202,7 +206,8 @@ const Page = () => {
             <h1 className="text-lg font-bold font-poppins ">Messages</h1>
             {defaultMessages.map((defaultMsg) => (
               <div key={defaultMsg.id}>
-                <Button key={defaultMsg.id}
+                <Button
+                  key={defaultMsg.id}
                   className="border-[1px] border-gray-200 font-poppins shadow-sm w-full tracking-wide mt-4 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200"
                   onClick={() => {
                     setValue("content", defaultMsg.message);
