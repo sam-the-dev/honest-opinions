@@ -218,7 +218,7 @@ const Page = () => {
 
             <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 lg:text-base sm:text-sm text-xs sm:mt-3 mb-3 mt-1 font-poppins">
               Click any messages below to select it or use AI to generate new
-              messages by clicking on "Suggest Message"
+              messages by clicking on &quot;Suggest Message&quot;
             </label>
           </div>
           <div className="w-full rounded-md shadow-lg border-gray-200 border-[0.5px] p-5 flex flex-col">
