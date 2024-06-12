@@ -38,6 +38,7 @@ const Page = () => {
     useState<generatedMessageProps[]>(defaultMessages);
   const [isDisabled, setDisabled] = useState<boolean>(true);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isSuggestMessageDisabled, setSuggestMessageDisabled] = useState<boolean>(false);
   const [isSuggestMessageLoading, setIsSuggestMessageLoading] =
     useState<boolean>(false);
   const [apiResponse, setApiResponse] = useState<string>("");
@@ -59,9 +60,15 @@ const Page = () => {
     const hours24 = 24 * 60 * 60 * 1000;
 
     if (click === 3) {
+      toast({
+        title: 'Suggest Messages limit exceeded !',
+        description: 'You can only suggest messages three times within a 24-hour period. The button will be re-enabled in 24 hours.',
+        className:
+          "bg-red-500 text-slate-50 outline-none text-lg tracking-wide font-medium",
+      });
       setTimeout(() => {
         setClick(0);
-      }, 5000);
+      }, hours24);
     }
   }, [click, setClick]);
 
