@@ -191,7 +191,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         />
         <Button
           type="button"
-          className="bg-myskin hover:bg-orange-500 focus:bg-orange-500 active:bg-orange-500 text-myblue items-center font-poppins"
+          className="bg-myskin hover:bg-orange-500 focus:bg-orange-500 active:bg-orange-500 sm:text-sm sm:w-[8rem] text-xs w-[6rem] text-myblue font-poppins"
           onClick={copyURL}
         >
           Copy Link
