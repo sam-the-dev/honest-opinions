@@ -224,7 +224,7 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
         )}
       </Button>
 
-      <div className=" w-full flex flex-wrap xl:gap-8 md:gap-6 gap-4 xl:justify-between sm:justify-evenly justify-center mt-4">
+      <div className=" w-full flex flex-wrap xl:gap-8 md:gap-6 gap-4 2xl:justify-evenly xl:justify-around sm:justify-evenly justify-center mt-4">
         {messages.length > 0 ? (
           messages.map((message) => (
             <div key={message.id}>

@@ -3,30 +3,24 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  apiResponseType,
-  messageSchema,
-  messageSchemaType,
-} from "@/lib/schema-types";
+import { messageSchema, messageSchemaType } from "@/lib/schema-types";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
 import { useParams } from "next/navigation";
-import axios, { Axios, AxiosError } from "axios";
 import { LoaderCircle } from "lucide-react";
 import { sendMessage } from "@/server-actions/send-message";
+import { generatedMessages } from "@/lib/GPTmessages";
 
 const defaultMessages = [
   { id: 0, message: "What type of movies are you in?" },
@@ -34,7 +28,14 @@ const defaultMessages = [
   { id: 3, message: `What's your go-to coffee order?` },
 ];
 
+interface generatedMessageProps {
+  id: number;
+  message: string;
+}
+
 const Page = () => {
+  const [messages, setMessages] =
+    useState<generatedMessageProps[]>(defaultMessages);
   const [isDisabled, setDisabled] = useState<boolean>(true);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isSuggestMessageLoading, setIsSuggestMessageLoading] =
@@ -68,9 +69,23 @@ const Page = () => {
     setClick((prev) => prev + 1);
     setIsSuggestMessageLoading(true);
 
-    setTimeout(() => {
-      setIsSuggestMessageLoading(false);
-    }, 3000);
+    const messageArray: generatedMessageProps[] = [];
+    let numbers = new Set();
+    while (numbers.size < 3) {
+      numbers.add(Math.floor(Math.random() * 200));
+    }
+
+    const numArray = Array.from(numbers);
+
+    numArray.forEach((id) => {
+      const question: generatedMessageProps = generatedMessages.find(
+        (msg) => msg.id === id
+      ) as generatedMessageProps;
+      messageArray.push(question);
+    });
+
+    setMessages(messageArray);
+    setIsSuggestMessageLoading(false);
   };
 
   const onSubmit: SubmitHandler<messageSchemaType> = async (
@@ -108,9 +123,9 @@ const Page = () => {
 
   return (
     <>
-      <main className="w-full min-h-screen xl:px-[20rem] lg:px-[16rem] md:px-[12rem] sm:px-[8rem] px-[6rem] py-[2rem] bg-gray-100">
+      <main className="w-full min-h-screen xl:px-[20rem] lg:px-[16rem] md:px-[12rem] sm:px-[8rem] px-[3rem] py-[2rem] bg-gray-100">
         <div>
-          <h1 className="text-3xl font-bold text-center font-poppins">
+          <h1 className="sm:text-3xl text-2xl font-bold text-center font-poppins">
             Public Profile Link
           </h1>
 
@@ -123,8 +138,8 @@ const Page = () => {
                 control={form.control}
                 name="content"
                 render={({ field }) => (
-                  <FormItem className="sm:my-5 my-3">
-                    <FormLabel className="text-base font-poppins">
+                  <FormItem className="sm:my-5 my-3 flex flex-col">
+                    <FormLabel className="sm:text-base text-sm font-poppins sm:text-left text-center">
                       Send Anonymous Message to @{username}
                     </FormLabel>
                     <FormControl>
@@ -181,7 +196,7 @@ const Page = () => {
             </form>
           </Form>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             {isSuggestMessageLoading ? (
               <Button
                 type="submit"
@@ -195,31 +210,30 @@ const Page = () => {
                 type="button"
                 disabled={click === 3 ? true : false}
                 onClick={handleSuggestMessageClick}
-                className="text-sm w-36 tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center mt-7 scale-75 sm:scale-100"
+                className="text-sm w-36 tracking-wide font-poppins bg-myblue hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 text-gray-50 items-center mt-7 scale-75 sm:scale-100 relative right-4 sm:right-0"
               >
                 Suggest Messages
               </Button>
             )}
 
-            <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base sm:mt-3 mb-3 mt-1 font-poppins">
-              Click any messages below to select it
+            <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 lg:text-base sm:text-sm text-xs sm:mt-3 mb-3 mt-1 font-poppins">
+              Click any messages below to select it or use AI to generate new
+              messages by clicking on "Suggest Message"
             </label>
           </div>
           <div className="w-full rounded-md shadow-lg border-gray-200 border-[0.5px] p-5 flex flex-col">
             <h1 className="text-lg font-bold font-poppins ">Messages</h1>
-            {defaultMessages.map((defaultMsg) => (
-              <div key={defaultMsg.id}>
-                <Button
-                  key={defaultMsg.id}
-                  className="border-[1px] border-gray-200 font-poppins shadow-sm w-full tracking-wide mt-4 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200"
-                  onClick={() => {
-                    setValue("content", defaultMsg.message);
-                    setDisabled(false);
-                  }}
-                >
-                  {defaultMsg.message}
-                </Button>
-              </div>
+            {messages.map((msg) => (
+              <Button
+                key={msg.id}
+                className="border-[1px] border-gray-200 font-poppins shadow-sm w-full tracking-wide mt-4 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200 overflow-hidden lg:text-sm sm:text-xs text-[0.5rem] text-wrap py-5 "
+                onClick={() => {
+                  setValue("content", msg?.message);
+                  setDisabled(false);
+                }}
+              >
+                <p className="animate-typewriter">{msg?.message}</p>
+              </Button>
             ))}
           </div>
 

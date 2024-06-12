@@ -71,7 +71,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
   }
 
   return (
-    <Card className="xl:w-[28rem] lg:w-[18rem] sm:w-[16rem] w-[22rem] p-5 flex justify-between min-h-40 bg-myskin">
+    <Card className="2xl:w-[28rem] xl:w-[22rem] lg:w-[18rem] w-[18rem] p-5 flex justify-between sm:min-h-40 min-h-36 bg-myskin">
       <CardHeader className="max-w-[19rem]">
         <CardDescription className="font-poppins font-base text-myblue">
           {dateString}
