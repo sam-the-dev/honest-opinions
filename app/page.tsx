@@ -31,8 +31,6 @@ const defaultMessages = [
 ];
 
 export default function Home() {
-
-
   return (
     <>
       <main className="w-full min-h-screen bg-myblue">
@@ -51,6 +49,7 @@ export default function Home() {
             plugins={[
               Autoplay({
                 delay: 2000,
+                stopOnFocusIn: false,
               }),
             ]}
           >
@@ -71,5 +70,3 @@ export default function Home() {
     </>
   );
 }
-
-

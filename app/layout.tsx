@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import Provider from "@/providers";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Honest Opinions",
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={cn("min-h-screen bg-background font-sans antialiased")}>
         <Provider>{children}</Provider>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
