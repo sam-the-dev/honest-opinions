@@ -92,7 +92,6 @@ const Dashboard = ({ baseUrl }: { baseUrl: string }) => {
 
     try {
       const res = await getAllMessages();
-      console.log(res);
 
       const messageData = res?.userMessages;
 

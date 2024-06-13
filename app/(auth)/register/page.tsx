@@ -75,12 +75,10 @@ const Page = () => {
   }, [debouncedUsername]);
 
   const onSubmit: SubmitHandler<signupType> = async (data: signupType) => {
-    console.log(data);
     setIsSubmitting(true);
 
     try {
       const res = await registerUser(data.username, data.email, data.password)
-      console.log(res);
 
       if (!res?.success) {
         toast({

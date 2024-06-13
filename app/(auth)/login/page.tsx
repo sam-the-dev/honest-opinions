@@ -35,7 +35,6 @@ const Page = () => {
   });
 
   const onSubmit: SubmitHandler<signinType> = async (data: signinType) => {
-    console.log(data);
     setIsSubmitting(true);
 
     const res = await signIn("credentials", {
@@ -43,8 +42,6 @@ const Page = () => {
       identifier: data.identifier,
       password: data.password,
     });
-
-    console.log(res);
 
     if (res && res.ok && res.url) {
       toast({

@@ -52,7 +52,6 @@ const Page = () => {
       const usernameStr = Array.isArray(username) ? username[0] : username;
 
       const data = await verifyCodeAction(usernameStr, code);
-      console.log(data);
 
       if (!data?.success) {
         toast({
